@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "0a89a1ab-055e-46ff-bbfe-284ad0564239",
+		"name": "Cacke API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all cackes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "106bc118-5f68-403e-abca-d4b6b240561f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should have the message of success\", function () {\r",
+							"   const response = pm.response.json();\r",
+							"     pm.expect(response.message).to.eql('success');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should have data\", function () {\r",
+							"   const response = pm.response.json();\r",
+							"     pm.expect(response.data).length.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/cackes",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a specific cacke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06287ee9-9c88-4c51-88ce-e00e343df419",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response data should be a single element\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(typeof(response.data)).to.be.equal('object');\r",
+							"    pm.expect(response.message).to.be.equal('success');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/cackes/5fab57590a54453228300541",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes",
+						"5fab57590a54453228300541"
+					]
+				},
+				"description": "Get a specific cacke"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new cacke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c29dcc90-43f9-43c3-b573-17257024f9ae",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should return a success message\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.message).to.be.equal('success');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"traditional\",\r\n    \"price\": 50.232,\r\n    \"flavors\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/cackes",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a  duplicate cacke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c29dcc90-43f9-43c3-b573-17257024f9ae",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should return an error as the object\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.be.equal('Internal Server Error');\r",
+							"    pm.expect(response.message).to.be.equal('error');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"traditional\",\r\n    \"price\": 50.232,\r\n    \"flavors\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/cackes",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a cacke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73f060b4-b769-4742-9b94-906d5813927d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/cackes/5fab57590a54453228300541",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes",
+						"5fab57590a54453228300541"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a cacke that dosen't exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73f060b4-b769-4742-9b94-906d5813927d",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should return an error as the object\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.be.equal('There are no cackes with this id');\r",
+							"    pm.expect(response.message).to.be.equal('error');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/cackes/5fab57590a54453228300541",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes",
+						"5fab57590a54453228300541"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updates a specific cacke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0acf9f57-da76-48f7-a03c-52dc035e0f5b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should return an error as the object\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(typeof(response.data)).to.be.equal('object');\r",
+							"    pm.expect(response.message).to.be.equal('success');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"traditional\",\r\n    \"price\": 40.232,\r\n    \"flavors\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/cackes/5fab79ee08ea6b3314da9a04",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cackes",
+						"5fab79ee08ea6b3314da9a04"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
